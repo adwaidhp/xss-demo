@@ -200,6 +200,17 @@
       letter-spacing: 0.06em;
       color: #bbb;
     }
+
+    footer a {
+      color: #bbb;
+      text-decoration: none;
+      border-bottom: 1px solid #ddd;
+    }
+
+    footer a:hover {
+      color: #111;
+      border-bottom-color: #111;
+    }
   </style>
 </head>
 <body>
@@ -267,7 +278,7 @@
 </main>
 
 <footer>
-  <div class="inner">© 2025 notebook</div>
+  <div class="inner">© 2025 notebook &nbsp;·&nbsp; <a href="#" id="clear-link" onclick="clearComments(event)">clear comments</a></div>
 </footer>
 
 <script>
@@ -309,6 +320,12 @@
     } else {
       status.textContent = "Error posting comment.";
     }
+  }
+
+  async function clearComments(e) {
+    e.preventDefault();
+    await fetch(`${API}/comments`, { method: "DELETE" });
+    await loadComments();
   }
 
   loadComments();
