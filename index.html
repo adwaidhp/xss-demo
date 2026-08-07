@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>On Slowness</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #fff;
+      color: #111;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    header {
+      border-bottom: 1px solid #e0e0e0;
+      padding: 1.5rem 0;
+      margin-bottom: 3rem;
+    }
+
+    header .inner {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    header a {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #111;
+    }
+
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .post-meta {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: #888;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: normal;
+      line-height: 1.25;
+      margin-bottom: 1.5rem;
+    }
+
+    .post-body p {
+      margin-bottom: 1.4rem;
+    }
+
+    .post-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* comments */
+    .comments-section {
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .comments-section h2 {
+      font-size: 1rem;
+      font-family: "Courier New", Courier, monospace;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: normal;
+      margin-bottom: 2rem;
+      color: #555;
+    }
+
+    .comment {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .comment:last-of-type {
+      border-bottom: none;
+    }
+
+    .comment-author {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      color: #888;
+      margin-bottom: 0.4rem;
+    }
+
+    .comment-body {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* form */
+    .comment-form {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .comment-form h3 {
+      font-size: 0.85rem;
+      font-family: "Courier New", Courier, monospace;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: normal;
+      color: #555;
+      margin-bottom: 1.5rem;
+    }
+
+    .field {
+      margin-bottom: 1rem;
+    }
+
+    .field label {
+      display: block;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 0.35rem;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 0;
+      padding: 0.55rem 0.7rem;
+      font-family: Georgia, serif;
+      font-size: 0.95rem;
+      color: #111;
+      background: #fff;
+      outline: none;
+      transition: border-color 0.15s;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: #111;
+    }
+
+    .field textarea {
+      min-height: 100px;
+    }
+
+    button[type="submit"] {
+      margin-top: 0.5rem;
+      background: #111;
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.4rem;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background: #333;
+    }
+
+    #status {
+      margin-top: 0.8rem;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.78rem;
+      color: #888;
+    }
+
+    footer {
+      margin-top: 5rem;
+      padding: 2rem 0;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    footer .inner {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: #bbb;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <a href="/">notebook</a>
+  </div>
+</header>
+
+<main>
+  <article>
+    <div class="post-meta">June 12, 2025 &nbsp;·&nbsp; Essay</div>
+    <h1>On Slowness</h1>
+    <div class="post-body">
+      <p>
+        There is a kind of thinking that only happens when you are not trying to think.
+        It arrives sideways, in the shower or on a long walk, unbidden and often inconvenient.
+        We have built an entire civilization devoted to preventing it.
+      </p>
+      <p>
+        Speed is sold as freedom. You can have anything in two days, any answer in two seconds,
+        any distraction in two taps. But speed has a cost that doesn't appear on the receipt:
+        the slow processes — digestion, maturation, grief, understanding — do not compress.
+        You cannot fast-forward fermentation.
+      </p>
+      <p>
+        Attention is finite and directional. Whatever you point it at grows; whatever you neglect
+        atrophies. The modern economy has learned to point your attention at things that benefit
+        it, not you. The antidote is not a detox or a retreat. It is a practice, daily and
+        unglamorous, of choosing what to look at.
+      </p>
+      <p>
+        Slowness is not inefficiency. It is the condition under which certain things become
+        possible. A conversation that goes nowhere useful. A book finished without urgency.
+        An afternoon with no purpose. These are not failures of productivity. They are
+        the substrate on which a life is grown.
+      </p>
+      <p>
+        None of this is new. Every generation rediscovers it, usually after burning out.
+        The discovery doesn't feel like wisdom when you're inside it. It feels like
+        stopping. It feels like loss. And then, slowly, it starts to feel like something else.
+      </p>
+    </div>
+  </article>
+
+  <section class="comments-section">
+    <h2>Comments</h2>
+    <div id="comments-list"></div>
+
+    <div class="comment-form">
+      <h3>Leave a comment</h3>
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Your name" />
+      </div>
+      <div class="field">
+        <label for="body">Comment</label>
+        <textarea id="body" placeholder="Write something..."></textarea>
+      </div>
+      <button type="submit" onclick="submitComment()">Post</button>
+      <div id="status"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="inner">© 2025 notebook</div>
+</footer>
+
+<script>
+  // ⚠️ DEMO ONLY — intentionally vulnerable to XSS via innerHTML
+  const API = "https://YOUR_RENDER_URL_HERE";
+
+  async function loadComments() {
+    const res = await fetch(`${API}/comments`);
+    const comments = await res.json();
+    const list = document.getElementById("comments-list");
+    if (comments.length === 0) {
+      list.innerHTML = '<p style="color:#aaa;font-size:0.9rem;font-family:\'Courier New\',monospace;">No comments yet.</p>';
+      return;
+    }
+    list.innerHTML = comments.map(c => `
+      <div class="comment">
+        <div class="comment-author">${c.name}</div>
+        <div class="comment-body">${c.body}</div>
+      </div>
+    `).join("");
+  }
+
+  async function submitComment() {
+    const name = document.getElementById("name").value.trim();
+    const body = document.getElementById("body").value.trim();
+    const status = document.getElementById("status");
+    if (!name || !body) { status.textContent = "Name and comment required."; return; }
+    status.textContent = "Posting...";
+    const res = await fetch(`${API}/comments`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, body })
+    });
+    if (res.ok) {
+      document.getElementById("name").value = "";
+      document.getElementById("body").value = "";
+      status.textContent = "Posted.";
+      await loadComments();
+    } else {
+      status.textContent = "Error posting comment.";
+    }
+  }
+
+  loadComments();
+</script>
+</body>
+</html>
