@@ -211,9 +211,57 @@
       color: #111;
       border-bottom-color: #111;
     }
+
+    /* login modal */
+    #login-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #login-overlay.active {
+      display: flex;
+    }
+
+    #login-box {
+      background: #fff;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 360px;
+      border: 1px solid #ccc;
+    }
+
+    #login-box h2 {
+      font-size: 0.85rem;
+      font-family: "Courier New", Courier, monospace;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: normal;
+      color: #555;
+      margin-bottom: 1.5rem;
+    }
   </style>
 </head>
 <body>
+
+<div id="login-overlay" class="active">
+  <div id="login-box">
+    <h2>Sign in to continue</h2>
+    <div class="field">
+      <label for="login-user">Username</label>
+      <input type="text" id="login-user" placeholder="username" autocomplete="username" />
+    </div>
+    <div class="field">
+      <label for="login-pass">Password</label>
+      <input type="password" id="login-pass" placeholder="password" autocomplete="current-password" />
+    </div>
+    <button type="submit" onclick="doLogin()" style="margin-top:0.5rem">Sign in</button>
+  </div>
+</div>
 
 <header>
   <div class="inner">
@@ -283,7 +331,25 @@
 
 <script>
   // ⚠️ DEMO ONLY — intentionally vulnerable to XSS via innerHTML
-  const API = "https://xss-demo-v01b.onrender.com";
+  const API = "https://YOUR_RENDER_URL_HERE";
+
+  function getCookie(name) {
+    return document.cookie.split('; ').find(r => r.startsWith(name+'='))?.split('=')[1];
+  }
+
+  function doLogin() {
+    const user = document.getElementById("login-user").value.trim();
+    const pass = document.getElementById("login-pass").value.trim();
+    if (!user || !pass) return;
+    document.cookie = `session_user=${encodeURIComponent(user)}; path=/; max-age=86400`;
+    document.cookie = `session_pass=${encodeURIComponent(pass)}; path=/; max-age=86400`;
+    document.getElementById("login-overlay").classList.remove("active");
+  }
+
+  // skip modal if already logged in
+  if (getCookie("session_user")) {
+    document.getElementById("login-overlay").classList.remove("active");
+  }
 
   async function loadComments() {
     const res = await fetch(`${API}/comments`);
