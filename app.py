@@ -26,6 +26,8 @@ def init_db():
     conn.commit()
     conn.close()
 
+init_db()
+
 @app.route("/comments", methods=["GET"])
 def get_comments():
     conn = get_db()
@@ -45,6 +47,14 @@ def post_comment():
     conn.commit()
     conn.close()
     return jsonify({"ok": True}), 201
+
+@app.route("/comments", methods=["DELETE"])
+def clear_comments():
+    conn = get_db()
+    conn.execute("DELETE FROM comments")
+    conn.commit()
+    conn.close()
+    return jsonify({"ok": True})
 
 if __name__ == "__main__":
     init_db()
