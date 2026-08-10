@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>On Slowness</title>
+  <title>Everything Changes Faster Than You Think</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -271,36 +271,75 @@
 
 <main>
   <article>
-    <div class="post-meta">June 12, 2025 &nbsp;·&nbsp; Essay</div>
-    <h1>On Slowness</h1>
+    <div class="post-meta">August 10, 2026 &nbsp;·&nbsp; Essay</div>
+    <h1>On Digital Life</h1>
     <div class="post-body">
       <p>
-        There is a kind of thinking that only happens when you are not trying to think.
-        It arrives sideways, in the shower or on a long walk, unbidden and often inconvenient.
-        We have built an entire civilization devoted to preventing it.
+        There was a time when being alone meant being unreachable. You could walk down a road, sit on
+        a train, or lie awake at night without anyone knowing where you were or expecting a response.
+        Now, even solitude has an audience. The phone sits beside us like a small window through which
+        the rest of the world can enter at any moment.
       </p>
       <p>
-        Speed is sold as freedom. You can have anything in two days, any answer in two seconds,
-        any distraction in two taps. But speed has a cost that doesn't appear on the receipt:
-        the slow processes — digestion, maturation, grief, understanding — do not compress.
-        You cannot fast-forward fermentation.
+        The strange thing about digital life is that it rarely feels like an intrusion. It arrives
+        disguised as convenience. A message can be answered in seconds. A photograph can be taken
+        without thinking. A question can be answered before curiosity has had time to develop. We have
+        made the world extraordinarily accessible, and in doing so, made it increasingly difficult to
+        leave the world alone.
       </p>
       <p>
-        Attention is finite and directional. Whatever you point it at grows; whatever you neglect
-        atrophies. The modern economy has learned to point your attention at things that benefit
-        it, not you. The antidote is not a detox or a retreat. It is a practice, daily and
-        unglamorous, of choosing what to look at.
+        Our phones have become more than tools. They hold our conversations, photographs, calendars,
+        memories, directions, entertainment, and increasingly, our decisions. We no longer need to
+        remember a phone number, navigate a familiar road, or sit with a question for very long. The
+        device remembers for us. It thinks with us. Sometimes it thinks before we have had the chance to.
       </p>
       <p>
-        Slowness is not inefficiency. It is the condition under which certain things become
-        possible. A conversation that goes nowhere useful. A book finished without urgency.
-        An afternoon with no purpose. These are not failures of productivity. They are
-        the substrate on which a life is grown.
+        There is a particular kind of restlessness that comes from always having somewhere else to look.
+        A conversation becomes interrupted by a notification. A difficult moment becomes something to
+        scroll through. A few minutes of boredom become an opportunity to consume something. We have
+        become remarkably good at avoiding the empty spaces in our own lives.
       </p>
       <p>
-        None of this is new. Every generation rediscovers it, usually after burning out.
-        The discovery doesn't feel like wisdom when you're inside it. It feels like
-        stopping. It feels like loss. And then, slowly, it starts to feel like something else.
+        But those empty spaces were never really empty. Boredom gave the mind somewhere to wander.
+        Waiting created anticipation. Getting lost required attention. Silence allowed thoughts to arrive
+        without being summoned. By filling every pause, we may have gained efficiency while losing some
+        of the conditions in which reflection happens.
+      </p>
+      <p>
+        Digital life has also changed how we remember. We used to remember moments because we experienced
+        them. Now we often record them because we expect to remember them later. A birthday becomes a
+        collection of photographs. A trip becomes a story for a feed. Sometimes the act of documenting
+        an experience quietly replaces the experience itself.
+      </p>
+      <p>
+        And yet it would be dishonest to treat the digital world as an enemy. It has given us things
+        previous generations could hardly imagine: friendships across continents, instant access to
+        knowledge, communities for people who once felt completely alone, and the ability to create and
+        share things without asking anyone for permission. The internet can make the world smaller in
+        the best possible sense.
+      </p>
+      <p>
+        The problem, then, is not that we live digitally. We cannot simply step outside it. The problem
+        is forgetting that a tool can become an environment. When every spare moment is filled, when
+        every thought is immediately searched, when every experience is potentially content, the
+        technology stops being something we use and starts becoming something we live inside.
+      </p>
+      <p>
+        Perhaps the goal is not to return to some imagined life before screens. That life is gone, and
+        much of what technology has given us is worth keeping. The better question is what we refuse
+        to surrender to it.
+      </p>
+      <p>
+        A conversation without checking the phone. A walk without documenting it. A meal that does not
+        become a photograph. A question allowed to remain unanswered for a while. An evening in which
+        nothing needs to be posted.
+      </p>
+      <p>
+        These things seem almost insignificant now. Perhaps that is precisely why they matter.
+      </p>
+      <p>
+        The digital world gives us the ability to be everywhere at once. Adulthood may be learning
+        that we do not have to be.
       </p>
     </div>
   </article>
@@ -326,7 +365,7 @@
 </main>
 
 <footer>
-  <div class="inner">© 2025 notebook &nbsp;·&nbsp; <a href="#" id="clear-link" onclick="clearComments(event)">clear comments</a></div>
+  <div class="inner">© 2025 notebook</div>
 </footer>
 
 <script>
@@ -386,12 +425,6 @@
     } else {
       status.textContent = "Error posting comment.";
     }
-  }
-
-  async function clearComments(e) {
-    e.preventDefault();
-    await fetch(`${API}/comments`, { method: "DELETE" });
-    await loadComments();
   }
 
   loadComments();
