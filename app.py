@@ -56,6 +56,14 @@ def clear_comments():
     conn.close()
     return jsonify({"ok": True})
 
+@app.route("/reset", methods=["GET"])
+def reset_comments():
+    conn = get_db()
+    conn.execute("DELETE FROM comments")
+    conn.commit()
+    conn.close()
+    return jsonify({"ok": True, "message": "Comments cleared"})
+
 if __name__ == "__main__":
     init_db()
     port = int(os.environ.get("PORT", 5000))
